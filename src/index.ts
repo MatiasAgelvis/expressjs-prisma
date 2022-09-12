@@ -1,7 +1,9 @@
-import { PrismaClient } from "@prisma/client";
 import express from "express";
-
-const prisma = new PrismaClient();
+import { logger } from "../logger";
+import { apiURL, postProperties } from "./config";
+import { getPosts, savePosts } from "./hn";
+import { prisma } from "./db";
+import { initScheduledPostFetch } from "./schedule";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -9,68 +11,81 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.raw({ type: "application/vnd.custom-type" }));
 app.use(express.text({ type: "text/html" }));
+initScheduledPostFetch("0 * * * *", async () =>
+  savePosts(await getPosts(apiURL, postProperties))
+);
 
-app.get("/todos", async (req, res) => {
-  const todos = await prisma.todo.findMany({
-    orderBy: { createdAt: "desc" },
-  });
+app.get("/posts", async (req, res) => {
+  const pageSize = 5;
+  const skip = (parseInt(String(req.query.page)) || 0) * pageSize;
+  const where: { tags?: object; author?: object; title?: object } = {};
+  const tag = req.query._tag;
+  const author = req.query.author;
+  const title = req.query.title;
 
-  res.json(todos);
+  const tagFilter = tag !== undefined ? { tags: { has: tag as string } } : {};
+
+  return res.json(
+    await prisma.post.findMany({
+      orderBy: { createdAt: "desc" },
+      take: pageSize,
+      skip,
+      where: {
+        ...tagFilter,
+        author: { equals: author as string },
+        title: { contains: title as string },
+      },
+    })
+  );
 });
 
-app.post("/todos", async (req, res) => {
-  const todo = await prisma.todo.create({
-    data: {
-      completed: false,
-      createdAt: new Date(),
-      text: req.body.text ?? "Empty todo",
-    },
-  });
+app.get("/posts/:id", async (req, res) => {
+  const id = parseInt(req.params.id);
 
-  return res.json(todo);
+  try {
+    const todo = await prisma.post.findUnique({
+      where: { id },
+    });
+
+    return res.json(todo);
+  } catch (e) {
+    return res.send({ status: "error", error: e });
+  }
 });
 
-app.get("/todos/:id", async (req, res) => {
-  const id = req.params.id;
-  const todo = await prisma.todo.findUnique({
-    where: { id },
-  });
+app.delete("/posts/:id", async (req, res) => {
+  const id = parseInt(req.params.id);
 
-  return res.json(todo);
-});
-
-app.put("/todos/:id", async (req, res) => {
-  const id = req.params.id;
-  const todo = await prisma.todo.update({
-    where: { id },
-    data: req.body,
-  });
-
-  return res.json(todo);
-});
-
-app.delete("/todos/:id", async (req, res) => {
-  const id = req.params.id;
-  await prisma.todo.delete({
-    where: { id },
-  });
-
-  return res.send({ status: "ok" });
+  try {
+    await prisma.post.delete({
+      where: { id },
+    });
+    await prisma.deletedPost.create({ data: { id } });
+    return res.send({ status: "ok" });
+  } catch (e) {
+    return res.send({ status: "error", error: e });
+  }
 });
 
 app.get("/", async (req, res) => {
   res.send(
     `
-  <h1>Todo REST API</h1>
+  <h1>Reign Posts REST API</h1>
   <h2>Available Routes</h2>
   <pre>
-    GET, POST /todos
-    GET, PUT, DELETE /todos/:id
+    GET /todos ? tags & author & title
+    GET, DELETE /todos/:id
   </pre>
-  `.trim(),
+  `.trim()
   );
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
-});
+async function start() {
+  savePosts(await getPosts(apiURL, postProperties));
+
+  app.listen(port, () => {
+    console.log(`Example app listening at http://localhost:${port}`);
+  });
+}
+
+start();
