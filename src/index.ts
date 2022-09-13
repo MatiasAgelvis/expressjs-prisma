@@ -1,5 +1,4 @@
 import express from "express";
-import { logger } from "../logger";
 import { apiURL, postProperties } from "./config";
 import { getPosts, savePosts } from "./hn";
 import { prisma } from "./db";
@@ -18,7 +17,7 @@ initScheduledPostFetch("0 * * * *", async () =>
 app.get("/posts", async (req, res) => {
   const pageSize = 5;
   const skip = (parseInt(String(req.query.page)) || 0) * pageSize;
-  const where: { tags?: object; author?: object; title?: object } = {};
+
   const tag = req.query._tag;
   const author = req.query.author;
   const title = req.query.title;
