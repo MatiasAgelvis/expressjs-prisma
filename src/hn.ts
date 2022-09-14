@@ -13,7 +13,7 @@ const objectApply = (obj: Object, properties: { [key: string]: Function }) => {
   return newObj;
 };
 
-async function fetchAPI(url: RequestInfo | URL) {
+export async function fetchAPI(url: RequestInfo | URL) {
   const res = await fetch(url);
   return await res.json();
 }
@@ -33,12 +33,13 @@ export async function getPosts(url: RequestInfo | URL, properties: Object) {
   // filter list of posts from API agaings deleted posts
   posts = posts.filter((post: Post) => !deletedPosts.includes(post.id));
 
-  logger.debug("Posts", posts);
   return posts;
 }
 
-export function savePosts(posts: Array<Post>) {
-  posts.map(
+export function savePosts(posts: Post | Array<Post>) {
+  const postList = Array.isArray(posts) ? posts : [posts];
+
+  postList.map(
     async (post: Post) =>
       await prisma.post.upsert({
         where: { id: post.id },
