@@ -11,13 +11,15 @@ generator client {
 }
 
 model Post {
-  id           Int @id
-  title        String
-  author       String
-  createdAt    DateTime
-  tags         String[]
+  id        Int      @id
+  title     String
+  author    String
+  text      String   @default("")
+  url       String
+  createdAt DateTime
+  tags      String[]
 }
 
 model deletedPost {
-  id           Int @id
+  id Int @id
 }
