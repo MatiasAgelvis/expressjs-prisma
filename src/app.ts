@@ -1,30 +1,28 @@
 import express from "express";
-import { apiURL, postProperties } from "./config";
-import { getPosts, savePosts } from "./hn";
 import { prisma } from "./db";
-import { initScheduledPostFetch } from "./schedule";
 import swaggerUi from 'swagger-ui-express';
 import YAML from 'yamljs';
 
 const app = express();
-const port = process.env.PORT || 3000;
-
-const swaggerDocument = YAML.load('./swagger.yaml');
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(express.json());
 app.use(express.raw({ type: "application/vnd.custom-type" }));
 app.use(express.text({ type: "text/html" }));
 
-initScheduledPostFetch("0 * * * *", async () =>
-  savePosts(await getPosts(apiURL, postProperties))
-);
-
 const handleResponse = (res: express.Response, data: any) => res.status(200).send(data);
 const handleError = (res: express.Response, err: any) => res.status(err.status || 500).send(err);
 
 
+//////////////////////////////
+////////// GET /API-DOCS
+//////////////////////////////
+const swaggerDocument = YAML.load('./swagger.yaml');
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
+
+//////////////////////////////
+////////// GET /POSTS
+//////////////////////////////
 app.get("/posts", async (req, res) => {
   const pageSize = 5;
   const skip = (parseInt(String(req.query.page)) || 0) * pageSize;
@@ -50,7 +48,9 @@ app.get("/posts", async (req, res) => {
 });
 
 
-
+//////////////////////////////
+////////// GET /POSTS/:ID
+//////////////////////////////
 app.get("/posts/:id", async (req, res) => {
   const id = parseInt(req.params.id);
 
@@ -65,7 +65,9 @@ app.get("/posts/:id", async (req, res) => {
 
 
 
-
+//////////////////////////////
+////////// DELETE /POSTS/:ID
+//////////////////////////////
 app.delete("/posts/:id", async (req, res) => {
   const id = parseInt(req.params.id);
 
@@ -81,11 +83,12 @@ app.delete("/posts/:id", async (req, res) => {
 });
 
 
-
+//////////////////////////////
+////////// GET /
+//////////////////////////////
 app.get("/", async (req, res) => {
-  res.send(
-    `
-  <h1>Reign REST API</h1>
+  res.send(`
+    <h1>Reign REST API</h1>
   <h2>Available Routes</h2>
   <pre>
     GET /todos [? tags & author & title]
@@ -95,14 +98,4 @@ app.get("/", async (req, res) => {
   );
 });
 
-
-
-async function start() {
-  // seed database on server start
-  savePosts(await getPosts(apiURL, postProperties));
-
-  app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`);
-  });
-}
-start();
+module.exports = app
