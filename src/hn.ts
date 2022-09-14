@@ -1,15 +1,16 @@
+import { Post } from "@prisma/client";
 import fetch from "cross-fetch";
 import { logger } from "../logger";
+import { Object } from "./types";
 import { prisma } from "./db";
-var objectMapper = require("object-mapper");
 
-type Post = {
-  id: number;
-  title: string;
-  story_title?: string;
-  author: string;
-  createdAt: string;
-  tags: Array<string>;
+const objectApply = (obj: Object, properties: { [key: string]: Function }) => {
+  const newObj: Object = {};
+  for (const [key, val] of Object.entries(properties)) {
+    newObj[key] = val(obj);
+  }
+
+  return newObj;
 };
 
 async function fetchAPI(url: RequestInfo | URL) {
@@ -17,7 +18,7 @@ async function fetchAPI(url: RequestInfo | URL) {
   return await res.json();
 }
 
-export async function getPosts(url: RequestInfo | URL, properties: object) {
+export async function getPosts(url: RequestInfo | URL, properties: Object) {
   // fetch API
   const res = await fetchAPI(url);
   // Get list of user deleted posts
@@ -25,26 +26,9 @@ export async function getPosts(url: RequestInfo | URL, properties: object) {
     (deleted) => deleted.id
   );
 
-  logger.debug("deletedPosts", deletedPosts);
-
   let posts: Array<Post> = res.hits
-    // select and rename post properties
-    .map((post: object) => objectMapper(post, properties));
-
-  // ensure that the title field is populated
-  posts = posts.map((post: Post) => {
-    return { ...post, title: String(post.title || post.story_title) };
-  });
-  // remove helper field
-  posts.map((post: Post) => delete post.story_title);
-
-  // ensure that the is field is populated
-  posts = posts.map((post: Post) => {
-    return {
-      ...post,
-      id: post.id || parseInt(post.tags[2].replace("story_", "")),
-    };
-  });
+    // select, transform and rename post properties
+    .map((post: Object) => objectApply(post, properties));
 
   // filter list of posts from API agaings deleted posts
   posts = posts.filter((post: Post) => !deletedPosts.includes(post.id));
