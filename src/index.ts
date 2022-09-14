@@ -15,9 +15,15 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(express.json());
 app.use(express.raw({ type: "application/vnd.custom-type" }));
 app.use(express.text({ type: "text/html" }));
+
 initScheduledPostFetch("0 * * * *", async () =>
   savePosts(await getPosts(apiURL, postProperties))
 );
+
+const handleResponse = (res: express.Response, data: any) => res.status(200).send(data);
+const handleError = (res: express.Response, err: any) => res.status(err.status || 500).send(err);
+
+
 
 app.get("/posts", async (req, res) => {
   const pageSize = 5;
@@ -43,53 +49,60 @@ app.get("/posts", async (req, res) => {
   );
 });
 
+
+
 app.get("/posts/:id", async (req, res) => {
   const id = parseInt(req.params.id);
 
   try {
-    const todo = await prisma.post.findUnique({
+    const post = await prisma.post.findUnique({
       where: { id },
     });
+    return handleResponse(res, post);
 
-    return res.json(todo);
-  } catch (e) {
-    return res.send({ status: "error", error: e });
-  }
+  } catch (e) { return handleError(res, e); }
 });
+
+
+
 
 app.delete("/posts/:id", async (req, res) => {
   const id = parseInt(req.params.id);
 
   try {
-    await prisma.post.delete({
+    const post = await prisma.post.delete({
       where: { id },
     });
     await prisma.deletedPost.create({ data: { id } });
-    return res.send({ status: "ok" });
-  } catch (e) {
-    return res.send({ status: "error", error: e });
-  }
+    
+    return handleResponse(res, post)
+ 
+  } catch (e) { return handleError(res, e); }
 });
+
+
 
 app.get("/", async (req, res) => {
   res.send(
     `
-  <h1>Reign Posts REST API</h1>
+  <h1>Reign REST API</h1>
   <h2>Available Routes</h2>
   <pre>
-    GET /todos ? tags & author & title
+    GET /todos [? tags & author & title]
     GET, DELETE /todos/:id
   </pre>
   `.trim()
   );
 });
 
+
+
 async function start() {
+  // seed database on server start
   savePosts(await getPosts(apiURL, postProperties));
 
   app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
   });
 }
-
 start();
