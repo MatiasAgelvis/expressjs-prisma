@@ -3,9 +3,14 @@ import { apiURL, postProperties } from "./config";
 import { getPosts, savePosts } from "./hn";
 import { prisma } from "./db";
 import { initScheduledPostFetch } from "./schedule";
+import swaggerUi from 'swagger-ui-express';
+import YAML from 'yamljs';
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+const swaggerDocument = YAML.load('./swagger.yaml');
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(express.json());
 app.use(express.raw({ type: "application/vnd.custom-type" }));

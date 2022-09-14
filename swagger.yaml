@@ -1,0 +1,111 @@
+components:
+  schemas:
+    Post:
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        createdAt:
+          type: string
+        author:
+          type: string
+        'tags':
+          type: array
+          items:
+            type: string
+      required:
+        - id
+        - name
+      type: object
+    Posts:
+      type: array
+      items:
+        $ref: '#/components/schemas/Post'
+info:
+  title: Reign Challenge API
+openapi: 3.0.3
+paths:
+  /posts:
+    get:
+      description: A lists of HN posts related to NodeJS
+      operationId: getPosts
+      parameters:
+        - description: Page
+          in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+        - description: Author
+          in: query
+          name: author
+          required: false
+          schema:
+            type: string
+        - description: Title
+          in: query
+          name: title
+          required: false
+          schema:
+            type: string
+        - description: Tag
+          in: query
+          name: tag
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Posts'
+          description: Successful operation
+      summary: Gets a lists of posts.
+      tags:
+        - Posts
+  /posts/{id}:
+    get:
+      description: A HN posts related to NodeJS
+      operationId: getPost
+      parameters:
+        - description: ID
+          in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+          description: Successful operation
+      summary: Gets a post.
+      tags:
+        - Posts
+    delete:
+      description: Delete a posts from the database
+      operationId: getPost
+      parameters:
+        - description: ID
+          in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+          description: Successful operation
+      summary: Delete a post.
+      tags:
+        - Posts
+servers:
+  - url: http://localhost:3000
+  - url: https://expressjs-prisma-production-228a.up.railway.app
