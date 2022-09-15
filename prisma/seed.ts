@@ -1,9 +1,9 @@
 import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
-const posts = [{ 
+export const posts = [{ 
   id: 10, 
-  title: 'Foo', 
+  title: 'foo', 
   author: 'Alice', 
   text: 'Foo Bar Baz Pizza', 
   url: 'https://exemplary-sulfur.org', 
@@ -11,7 +11,7 @@ const posts = [{
   tags: ['foo'] 
 }, { 
   id: 11, 
-  title: 'FooBar', 
+  title: 'foobar', 
   author: 'Bob', 
   text: 'Foo Bar Baz Pizza', 
   url: 'https://exemplary-sulfur.org', 
@@ -19,7 +19,7 @@ const posts = [{
   tags: ['bar'] 
 }, { 
   id: 12, 
-  title: 'Bar', 
+  title: 'bar', 
   author: 'Bob', 
   text: 'Foo Bar Baz Pizza', 
   url: 'https://exemplary-sulfur.org', 
@@ -28,9 +28,19 @@ const posts = [{
 }
 ]
 
+export const deletedPosts = [{ id: 99 }]
+
 async function main() {
   posts.map(async post => {
     await prisma.post.upsert({
+      where: { id: post.id },
+      update: {},
+      create: { ...post }
+    })
+  })
+
+  deletedPosts.map(async post => {
+    await prisma.deletedPost.upsert({
       where: { id: post.id },
       update: {},
       create: { ...post }
