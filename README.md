@@ -33,11 +33,11 @@ This is an [ExpressJS](https://expressjs.com/) REST API that uses [Prisma](https
 
 ## 💁‍♀️ Deploy to Railway
 
-- Install dependencies `yarn` or `pnpm`
+- Install dependencies `yarn install`
 - [Provision a Postgres container on Railway](https://dev.new)
 - Connect to your Railway project with `railway link`
 - Migrate the database `railway run yarn migrate:dev`
-- Run the Server app `railway run yarn dev`
+- Deploy with `railway up`
 
 ## 📝 Notes
 
