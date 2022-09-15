@@ -10,7 +10,7 @@ tags:
 
 # HackerNews ExpressJS Prisma
 
-This is an [ExpressJS](https://expressjs.com/) REST API that uses [Prisma](https://www.prisma.io/) to connect to a Postgres database and CRUD HackerNews posts.
+This is an [ExpressJS](https://expressjs.com/) REST API that uses [Prisma](https://www.prisma.io/) to connect to a Postgres database and store HackerNews posts related to NodeJS every hour, the posts can be fetched in groups or individually, and be deleted via the API.
 
 [![codecov](https://codecov.io/gh/MatiasAgelvis/expressjs-prisma/branch/main/graph/badge.svg?token=7OESZNZ04T)](https://codecov.io/gh/MatiasAgelvis/expressjs-prisma)  
 [![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template/LqCw_O)
@@ -43,6 +43,7 @@ This is an [ExpressJS](https://expressjs.com/) REST API that uses [Prisma](https
 
 REST API for HackerNews posts related to NodeJS. The available routes are:
 
+- `GET /api-docs` displays a swagger API documentation
 - `GET /posts` gets a list of posts, has the following query parameters:
   - `page` : number, gets a different list of results
   - `author` : string, gets a list of posts by the author
