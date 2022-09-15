@@ -1,22 +1,28 @@
 name: Workflow for Codecov
-true: [push, pull_request]
+on: [push, pull_request]
 jobs:
-  run:
+  coverage-test:
     runs-on: ubuntu-latest
-    services:
-      postgres:
-        env: {POSTGRES_DB: postgres_db, POSTGRES_PASSWORD: postgres_password, POSTGRES_PORT: 5432,
-          POSTGRES_USER: postgres_user}
-        image: postgres:latest
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s
-          --health-retries 5
-        ports: ['5432:5432']
     steps:
-      env: {DATABASE_URL: postgres://postgres_user:postgres_password@postgres:5432/postgres_db}
-    - {name: Checkout, uses: actions/checkout@v2}
-    - name: Set up Node 18
-      uses: actions/setup-node@v3
-      with: {node-version: 18}
-    - {name: Install dependencies, run: npm install}
-    - {name: Run tests and collect coverage, run: npm run test}
-    - {name: Upload coverage to Codecov, uses: codecov/codecov-action@v3}
+      - env:
+          SNAPLET_ACCESS_TOKEN: ${{ secrets.SNAPLET_ACCESS_TOKEN }}
+          SNAPLET_DATABASE_ID: <snaplet-database-id>
+          PGHOST: localhost
+          PGUSER: postgres
+          PGPASSWORD: postgres
+          PGPORT: 5432
+          PGDATABASE: postgres_db
+          DATABASE_URL: postgres://localhost:5432/postgres_db
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up Node 16
+        uses: actions/setup-node@v3
+      - with: {node-version: 16}
+      - name: Postgres Docker image with "baked-in" data
+        uses: snaplet/publish-postgres-with-data-docker-action@main
+      - name: Install dependencies
+        run: npm install
+      - name: Run tests and collect coverage
+        run: npm run test
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
