@@ -24,8 +24,9 @@ This is an [ExpressJS](https://expressjs.com/) REST API that uses [Prisma](https
 
 ## 🖥 Local Development
 
-- Install dependencies `yarn install` or `pnpm install`
+- Install dependencies with `yarn install`
 - Setup a local Postgres instance ([How To](https://www.prisma.io/dataguide/postgresql/setting-up-a-local-postgresql-database))
+- Create the environment files, `.env` for development and `.env.test` for testing following the example from `.env.example`
 - Migrate the database `yarn migrate:dev`
 - Run the Server app `yarn dev`
 
