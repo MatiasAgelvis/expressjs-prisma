@@ -2,7 +2,7 @@
   "name": "expressjs-prisma",
   "version": "1.0.0",
   "main": "src/server.ts",
-  "author": "Mtias Agelvis",
+  "author": "Matias Agelvis",
   "license": "MIT",
   "scripts": {
     "dev": "nodemon src/server.ts",
