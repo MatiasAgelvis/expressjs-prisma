@@ -21,4 +21,8 @@ const testPost = {
   tags: ['foo', 'bar'] 
 }
 
-module.exports = { testPost, Jest_Type_Post, Jest_Type_Posts }
+function randomElement(arr: Array<any>) {
+  return arr[Math.floor(Math.random() * arr.length)]
+}
+
+module.exports = { testPost, Jest_Type_Post, Jest_Type_Posts, randomElement }

@@ -1,8 +1,8 @@
 const { apiURL, postProperties } = require('../src/config')
 const { prisma } = require('../src/db')
 const { fetchAPI, getPosts, savePosts } = require('../src/hn')
-const { testPost, Jest_Type_Post, Jest_Type_Posts } = require('./utils')
-
+const { testPost, Jest_Type_Post, Jest_Type_Posts, randomElement } = require('./utils')
+const { deletedPosts } = require('../prisma/seed');
 
 test('Get posts from API', async () => {
   const posts = await getPosts(apiURL, postProperties)
@@ -10,10 +10,17 @@ test('Get posts from API', async () => {
 })
 
 test('Save post to DB', async () => {
-  await savePosts(testPost)
+  savePosts(testPost)
+  await setTimeout(function () {}, 100);
+  expect(await prisma.post.findUnique({ where: { id: testPost.id } })).toMatchObject({ id: testPost.id })
+})
+
+test('Not save post to DB that is on deleted Posts table', async () => {
+  const notPost = testPost
+  notPost.id = randomElement(deletedPosts).id
+  savePosts(notPost)
   expect(await prisma.post.findUnique(
-    { where: { id: testPost.id }, select: { id: true } }))
-    .toEqual({ id:testPost.id})
+    { where: { id: notPost.id } })).toBeNull()
 })
 
 test('Fetch API json', async () => {
