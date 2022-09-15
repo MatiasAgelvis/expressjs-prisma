@@ -1,0 +1,440 @@
+{
+	"version": 1,
+	"collections": [
+		{
+			"id": "66725efc-d3fd-4b76-8ca5-c81ee382ac71",
+			"uid": "0-66725efc-d3fd-4b76-8ca5-c81ee382ac71",
+			"name": "hn",
+			"description": null,
+			"auth": null,
+			"events": null,
+			"variables": [],
+			"order": [
+				"3470e997-99ed-40cb-aa4f-5ec381d952f9",
+				"201be772-0eca-455e-aa4d-257e58fb4b0f"
+			],
+			"folders_order": [
+				"5f67702c-5440-4754-aa7a-f5458ddb41b5",
+				"121cb3f1-9e19-4473-9e70-0e5eef5044bf"
+			],
+			"protocolProfileBehavior": {},
+			"createdAt": "2022-09-15T03:44:21.221Z",
+			"folders": [
+				{
+					"id": "5f67702c-5440-4754-aa7a-f5458ddb41b5",
+					"uid": "0-5f67702c-5440-4754-aa7a-f5458ddb41b5",
+					"name": "/posts",
+					"description": null,
+					"auth": null,
+					"events": null,
+					"collection": "66725efc-d3fd-4b76-8ca5-c81ee382ac71",
+					"folder": null,
+					"order": [
+						"478f4b1d-90b1-4045-891d-232999ae85b0",
+						"3b496df4-52a4-4a5f-a74a-b545af4d074f",
+						"950afa45-8f7f-4393-acb3-39d815100784",
+						"ef9e9f00-9184-4fad-ae8b-a396e31c653f",
+						"726e855a-66ef-4b9c-9373-055182fad26e"
+					],
+					"folders_order": [],
+					"owner": "0",
+					"protocolProfileBehavior": {},
+					"createdAt": "2022-09-15T03:44:21.226Z",
+					"collectionId": "66725efc-d3fd-4b76-8ca5-c81ee382ac71",
+					"folderId": "5f67702c-5440-4754-aa7a-f5458ddb41b5"
+				},
+				{
+					"id": "121cb3f1-9e19-4473-9e70-0e5eef5044bf",
+					"uid": "0-121cb3f1-9e19-4473-9e70-0e5eef5044bf",
+					"name": "/posts/$id",
+					"description": null,
+					"auth": null,
+					"events": null,
+					"collection": "66725efc-d3fd-4b76-8ca5-c81ee382ac71",
+					"folder": null,
+					"order": [
+						"73fd89b4-587e-407a-8b01-986ebff2b2c9",
+						"b163092e-a03c-4d77-8dda-ed323b9b2f50",
+						"dab0a33e-1803-4286-816b-2b31392a37b7",
+						"083bc753-87f0-4578-b047-157bb22e5076"
+					],
+					"folders_order": [],
+					"owner": "0",
+					"protocolProfileBehavior": {},
+					"createdAt": "2022-09-15T03:44:21.226Z",
+					"collectionId": "66725efc-d3fd-4b76-8ca5-c81ee382ac71",
+					"folderId": "121cb3f1-9e19-4473-9e70-0e5eef5044bf"
+				}
+			],
+			"requests": [
+				{
+					"id": "083bc753-87f0-4578-b047-157bb22e5076",
+					"uid": "0-083bc753-87f0-4578-b047-157bb22e5076",
+					"name": "Delete Post by Wrong ID (Error)",
+					"url": "{{BASE_URL}}/posts/2",
+					"description": null,
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "DELETE",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": null,
+					"folder": "121cb3f1-9e19-4473-9e70-0e5eef5044bf",
+					"responses_order": [],
+					"protocolProfileBehavior": {
+						"followRedirects": false,
+						"followOriginalHttpMethod": false,
+						"followAuthorizationHeader": false
+					},
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "66725efc-d3fd-4b76-8ca5-c81ee382ac71",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "201be772-0eca-455e-aa4d-257e58fb4b0f",
+					"uid": "0-201be772-0eca-455e-aa4d-257e58fb4b0f",
+					"name": "Request Base Path",
+					"url": "{{BASE_URL}}",
+					"description": null,
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": null,
+					"folder": null,
+					"responses_order": [],
+					"protocolProfileBehavior": {
+						"followRedirects": false,
+						"followOriginalHttpMethod": false,
+						"followAuthorizationHeader": false
+					},
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "66725efc-d3fd-4b76-8ca5-c81ee382ac71",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "3470e997-99ed-40cb-aa4f-5ec381d952f9",
+					"uid": "0-3470e997-99ed-40cb-aa4f-5ec381d952f9",
+					"name": "API",
+					"url": "https://hn.algolia.com/api/v1/search_by_date?query=nodejs",
+					"description": null,
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [
+						{
+							"key": "query",
+							"value": "nodejs",
+							"enabled": true
+						}
+					],
+					"auth": null,
+					"events": null,
+					"folder": null,
+					"responses_order": [],
+					"protocolProfileBehavior": {
+						"followRedirects": false,
+						"followOriginalHttpMethod": false,
+						"followAuthorizationHeader": false
+					},
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "66725efc-d3fd-4b76-8ca5-c81ee382ac71",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "3b496df4-52a4-4a5f-a74a-b545af4d074f",
+					"uid": "0-3b496df4-52a4-4a5f-a74a-b545af4d074f",
+					"name": "Request Posts",
+					"url": "{{BASE_URL}}/posts?tag=comment",
+					"description": null,
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [
+						{
+							"key": "tag",
+							"value": "comment",
+							"equals": true,
+							"description": "",
+							"enabled": true
+						}
+					],
+					"auth": null,
+					"events": null,
+					"folder": "5f67702c-5440-4754-aa7a-f5458ddb41b5",
+					"responses_order": [],
+					"protocolProfileBehavior": {
+						"followRedirects": false,
+						"followOriginalHttpMethod": false,
+						"followAuthorizationHeader": false
+					},
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "66725efc-d3fd-4b76-8ca5-c81ee382ac71",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "478f4b1d-90b1-4045-891d-232999ae85b0",
+					"uid": "0-478f4b1d-90b1-4045-891d-232999ae85b0",
+					"name": "Request Posts selecting a Page of result",
+					"url": "{{BASE_URL}}/posts?page=2",
+					"description": null,
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [
+						{
+							"key": "page",
+							"value": "2",
+							"enabled": true
+						}
+					],
+					"auth": null,
+					"events": null,
+					"folder": "5f67702c-5440-4754-aa7a-f5458ddb41b5",
+					"responses_order": [],
+					"protocolProfileBehavior": {
+						"followRedirects": false,
+						"followOriginalHttpMethod": false,
+						"followAuthorizationHeader": false
+					},
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "66725efc-d3fd-4b76-8ca5-c81ee382ac71",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "726e855a-66ef-4b9c-9373-055182fad26e",
+					"uid": "0-726e855a-66ef-4b9c-9373-055182fad26e",
+					"name": "Request Posts and Filter by Author",
+					"url": "{{BASE_URL}}/posts?author=frankenst1",
+					"description": null,
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [
+						{
+							"key": "author",
+							"value": "frankenst1",
+							"enabled": true
+						}
+					],
+					"auth": null,
+					"events": null,
+					"folder": "5f67702c-5440-4754-aa7a-f5458ddb41b5",
+					"responses_order": [],
+					"protocolProfileBehavior": {
+						"followRedirects": false,
+						"followOriginalHttpMethod": false,
+						"followAuthorizationHeader": false
+					},
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "66725efc-d3fd-4b76-8ca5-c81ee382ac71",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "73fd89b4-587e-407a-8b01-986ebff2b2c9",
+					"uid": "0-73fd89b4-587e-407a-8b01-986ebff2b2c9",
+					"name": "Request Post by ID",
+					"url": "{{BASE_URL}}/posts/32677265",
+					"description": null,
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": null,
+					"folder": "121cb3f1-9e19-4473-9e70-0e5eef5044bf",
+					"responses_order": [],
+					"protocolProfileBehavior": {
+						"followRedirects": false,
+						"followOriginalHttpMethod": false,
+						"followAuthorizationHeader": false
+					},
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "66725efc-d3fd-4b76-8ca5-c81ee382ac71",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "950afa45-8f7f-4393-acb3-39d815100784",
+					"uid": "0-950afa45-8f7f-4393-acb3-39d815100784",
+					"name": "Request Posts and Filter by Title",
+					"url": "{{BASE_URL}}/posts?title=Explaining",
+					"description": null,
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [
+						{
+							"key": "title",
+							"value": "Explaining",
+							"enabled": true
+						}
+					],
+					"auth": null,
+					"events": null,
+					"folder": "5f67702c-5440-4754-aa7a-f5458ddb41b5",
+					"responses_order": [],
+					"protocolProfileBehavior": {
+						"followRedirects": false,
+						"followOriginalHttpMethod": false,
+						"followAuthorizationHeader": false
+					},
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "66725efc-d3fd-4b76-8ca5-c81ee382ac71",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "b163092e-a03c-4d77-8dda-ed323b9b2f50",
+					"uid": "0-b163092e-a03c-4d77-8dda-ed323b9b2f50",
+					"name": "Request Post by wrong ID (Error)",
+					"url": "{{BASE_URL}}/posts/2",
+					"description": null,
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": null,
+					"folder": "121cb3f1-9e19-4473-9e70-0e5eef5044bf",
+					"responses_order": [],
+					"protocolProfileBehavior": {
+						"followRedirects": false,
+						"followOriginalHttpMethod": false,
+						"followAuthorizationHeader": false
+					},
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "66725efc-d3fd-4b76-8ca5-c81ee382ac71",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "dab0a33e-1803-4286-816b-2b31392a37b7",
+					"uid": "0-dab0a33e-1803-4286-816b-2b31392a37b7",
+					"name": "Delete Post by ID",
+					"url": "{{BASE_URL}}/posts/32829160",
+					"description": null,
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "DELETE",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": null,
+					"folder": "121cb3f1-9e19-4473-9e70-0e5eef5044bf",
+					"responses_order": [],
+					"protocolProfileBehavior": {
+						"followRedirects": false,
+						"followOriginalHttpMethod": false,
+						"followAuthorizationHeader": false
+					},
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "66725efc-d3fd-4b76-8ca5-c81ee382ac71",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "ef9e9f00-9184-4fad-ae8b-a396e31c653f",
+					"uid": "0-ef9e9f00-9184-4fad-ae8b-a396e31c653f",
+					"name": "Request Posts and Filter by Tag Duplicate",
+					"url": "{{BASE_URL}}/posts?tag=comment",
+					"description": null,
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [
+						{
+							"key": "tag",
+							"value": "comment",
+							"enabled": true
+						}
+					],
+					"auth": null,
+					"events": null,
+					"folder": "5f67702c-5440-4754-aa7a-f5458ddb41b5",
+					"responses_order": [],
+					"protocolProfileBehavior": {
+						"followRedirects": false,
+						"followOriginalHttpMethod": false,
+						"followAuthorizationHeader": false
+					},
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "66725efc-d3fd-4b76-8ca5-c81ee382ac71",
+					"headers": "",
+					"pathVariables": {}
+				}
+			]
+		}
+	],
+	"environments": [
+		{
+			"id": "0833705e-ec60-4a83-9472-6083f3c843c2",
+			"name": "dev",
+			"values": [
+				{
+					"key": "BASE_URL",
+					"value": "http://localhost:3000",
+					"type": "default",
+					"enabled": true
+				}
+			]
+		},
+		{
+			"id": "5e6711b6-7de3-4672-9fcb-2781affe9de3",
+			"name": "My Workspace - globals",
+			"values": []
+		}
+	],
+	"headerPresets": [],
+	"globals": []
+}
