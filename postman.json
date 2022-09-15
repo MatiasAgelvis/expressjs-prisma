@@ -99,6 +99,39 @@
           "response": []
         },
         {
+          "name": "Request Posts selecting a Page of result",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{BASE_URL}}/posts?page=2",
+              "query": [
+                {
+                  "key": "page",
+                  "value": "2",
+                  "disabled": false,
+                  "description": null
+                }
+              ],
+              "protocol": null,
+              "host": [
+                "{{BASE_URL}}/posts"
+              ],
+              "port": null,
+              "path": null
+            },
+            "description": "",
+            "header": [],
+            "body": null,
+            "auth": null
+          },
+          "protocolProfileBehavior": {
+            "followRedirects": false,
+            "followOriginalHttpMethod": false,
+            "followAuthorizationHeader": false
+          },
+          "response": []
+        },
+        {
           "name": "Request Posts and Filter by Title",
           "request": {
             "method": "GET",
