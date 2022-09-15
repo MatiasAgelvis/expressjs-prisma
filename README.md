@@ -12,6 +12,7 @@ tags:
 
 This is an [ExpressJS](https://expressjs.com/) REST API that uses [Prisma](https://www.prisma.io/) to connect to a Postgres database and CRUD HackerNews posts.
 
+[![codecov](https://codecov.io/gh/MatiasAgelvis/expressjs-prisma/branch/main/graph/badge.svg?token=7OESZNZ04T)](https://codecov.io/gh/MatiasAgelvis/expressjs-prisma)  
 [![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template/LqCw_O)
 
 ## 📚 Stack
