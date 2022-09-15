@@ -12,7 +12,7 @@
     "migrate:deploy": "prisma migrate deploy",
     "migrate:status": "prisma migrate status",
     "generate": "prisma generate",
-    "test": "dotenv -e .env.test -- prisma migrate reset --force && jest"
+    "test": "dotenv -e .env.test -- prisma migrate reset --force && dotenv -e .env.test -- jest -i"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
